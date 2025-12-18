@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iframe Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        height: calc(100vh - 40px);
+        display: flex;
+        flex-direction: column;
+      }
+      h1 {
+        text-align: center;
+      }
+      .iframe-section {
+        height: 80%;
+      }
+      .iframe-container {
+        width: 100%;
+        height: 100%;
+        /* border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden; */
+      }
+
+      .iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+
+    <script>
+      function sendToUE() {
+        let data = document.getElementById("input").value;
+        console.log(data);
+
+        let obj = {
+          cmd: "sendToUe4", 
+          value: data,
+        };
+
+        document
+          .getElementById("iframe_1")
+          .contentWindow.postMessage(JSON.stringify(obj), "*");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Iframe Demo Page</h1>
+
+      <div style="margin-bottom: 10px; margin-left: 10%; margin-right: 10%">
+        <textarea
+          id="input"
+          style="width: 400px; height: 100px; padding: 6px; font-size: 14px"
+          placeholder="Data you want to send to Unreal App"
+        ></textarea>
+
+        <br />
+
+        <button
+          onclick="sendToUE()"
+          style="margin-top: 8px; padding: 6px 12px; font-size: 14px"
+        >
+          Send to UE
+        </button>
+      </div>
+
+      <div class="iframe-section">
+        <div class="iframe-container">
+          <iframe
+            style="visibility: visible"
+            id="iframe_1"
+            src="https://connector.eagle3dstreaming.com/v5/e3ds_dev1/E3DSCarConfig/frontend"
+            width="100%"
+            height="100%"
+            allowfullscreen
+            style="border: none"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
